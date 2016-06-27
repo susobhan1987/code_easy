@@ -53,6 +53,22 @@ void levelOrder (struct node *root) {
     }
 }
 
+void printAnsistorOfAGivenNode (struct node *root, int data, int result[], int index) {
+	
+	if (root == NULL) return;
+
+	if (root->data == data) {
+		int i;
+		for (i = 0; i<index; ++i)
+			printf ("%d ",result[i]);
+	}
+	else {
+		result[index++] = root->data;
+		printAnsistorOfAGivenNode (root->left,data,result,index);
+		printAnsistorOfAGivenNode (root->right,data,result,index);
+	}
+}
+
 int giveHeight (struct node *root) {
 	if (root == NULL) return 0;
 	return MAX(giveHeight (root->left),giveHeight(root->right)) +1;
@@ -96,10 +112,13 @@ struct node *createTree () {
 	return root;
 }
 int main () {
+	int result[10],index;
 	struct node *root = createTree ();
 	printf ("Inorder :::\n\r");
 	printInorder(root);
 	printf ("\nLevel order :::\n\r");
 	levelOrder(root);
+	printf ("\nprint Ansistor\n\r");
+	printAnsistorOfAGivenNode (root,11,result,0);
 	return 0;
 }
