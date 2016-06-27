@@ -79,6 +79,19 @@ int giveSum (struct node *root) {
 	return giveSum (root->right) + root->data + giveSum(root->left);
 }
 
+int isSumTree (struct node *root) {
+	int ls,rs;
+	if (root == NULL || ((root->left == NULL)&&(root->right == NULL)))
+		return 1;
+	ls = giveSum (root->left);
+	rs = giveSum (root->right);
+
+	if ((root->data == ls+rs) && (isSumTree(root->left)) && (isSumTree(root->right)))
+		return 1;
+	else 
+		return 0; 
+}
+
 /*UTILITY FUNCTIONS*/
 struct node** createQueue(int *front, int *rear)
 {
@@ -120,5 +133,6 @@ int main () {
 	levelOrder(root);
 	printf ("\nprint Ansistor\n\r");
 	printAnsistorOfAGivenNode (root,11,result,0);
+	printf ("\nis sum tree -> %d\n",isSumTree(root));
 	return 0;
 }
