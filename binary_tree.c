@@ -92,6 +92,18 @@ int isSumTree (struct node *root) {
 		return 0; 
 }
 
+int diameter (struct node *root) {
+	int lheight,rheight,ldia,rdia;
+	if (root == NULL) return 0;
+	lheight = giveHeight (root->left);
+	rheight = giveHeight (root->right);
+	ldia = diameter (root->left);
+	rdia = diameter (root->right);
+
+	return MAX((lheight,rheight+1),MAX(ldia,rdia));
+        
+}
+
 /*UTILITY FUNCTIONS*/
 struct node** createQueue(int *front, int *rear)
 {
@@ -125,7 +137,7 @@ struct node *createTree () {
 	return root;
 }
 int main () {
-	int result[10],index;
+	int result[10],index,dia;
 	struct node *root = createTree ();
 	printf ("Inorder :::\n\r");
 	printInorder(root);
@@ -134,5 +146,7 @@ int main () {
 	printf ("\nprint Ansistor\n\r");
 	printAnsistorOfAGivenNode (root,11,result,0);
 	printf ("\nis sum tree -> %d\n",isSumTree(root));
+	dia = diameter (root);
+	printf ("\nDia of tree %d\n\r",dia);
 	return 0;
 }
