@@ -27,6 +27,21 @@ void print_list (struct node *head) {
 	printf ("\n\r");
 }
 
+void reverse_slist (struct node **head) {
+
+	struct node *prev,*next,*current;
+	prev = NULL;
+	current = next = *head;
+
+	while (current) {
+		next = current->next;
+		current->next = prev;
+		prev = current;
+		current	= next;
+	}
+	*head = prev;
+}
+
 int main () {
 	struct node *tmp = NULL;
 	createNode (&tmp,6);
@@ -35,6 +50,8 @@ int main () {
 	createNode (&tmp,9);
 	createNode (&tmp,2);
 	createNode (&tmp,0);
+	print_list (tmp);
+	reverse_slist (&tmp);
 	print_list (tmp);
 	return 0;
 }
